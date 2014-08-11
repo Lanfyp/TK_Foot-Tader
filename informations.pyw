@@ -20,8 +20,6 @@ def informations():
     pseudo=StringVar()
 
     #disposition
-
-
     texte="Programme: FOOT TRADE & CASH\nVersion 0.1 2014\nCréateur: Lannuzel Yannick\n\n\
     Le jeu consiste à batir la meilleur équipe possible.\n\
     Pour cela vendez et achetez les joueurs qui vous fairons progresser\n\
