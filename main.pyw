@@ -33,7 +33,7 @@ Label(tete, text="PSEUDO: ",bg="white").pack(side="left")
 Entry(tete,textvariable=pseudo,width=25).pack(side="left",padx=30)
 Label(tete, text="MOT DE PASSE: ",bg="white").pack(side="left",padx=30)
 Entry(tete,textvariable=mdp,width=25,show="*").pack(side="left",padx=30)
-Button(tete, text="Valider",width=25,relief="raised",borderwidth=5, command= lambda : root.destroy() & accueil(pseudo.get(),mdp.get())).pack(side="left",padx=30)
+Button(tete, text="Valider",width=25,relief="raised",borderwidth=5, command= lambda : accueil(pseudo.get(),mdp.get())).pack(side="left",padx=30)
 Button(tete, text="Créer un compte",width=25,relief="raised",borderwidth=5, command="").pack(side="left")
 
 photoLogo= Label(centre, image= logo).pack(pady=100)
@@ -47,6 +47,3 @@ centre.pack()
 pied.pack()
 root.mainloop()
 
-##def valider():
-##    root.destroy()
-##    accueil("spycom","france72")

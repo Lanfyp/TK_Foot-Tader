@@ -4,6 +4,8 @@
 # FOOT-TRADER V0.1
 
 from tkinter import *
+from informations import *
+from tkinter.messagebox import *
 
 def accueil(pseudo,mdp):
     #fenetre
@@ -22,42 +24,38 @@ def accueil(pseudo,mdp):
     nomCoach=pseudo
     niveau="75"
     classement="101"
-    print(pseudo)
-    print(mdp)
 ###############PARCOUR LE FICHIER POUR SAVOIR SI COMPTE EXISTANT#########################
     indice=0#parcour fichier
     donnees=[]#liste pour recuperer valeur
     fichier= open("fichiers\comptes\comptes.txt", "r")#ouverture fichier  
     while indice != 2:
         donnees= fichier.readline().split(';')#decoupe la ligne ne liste (;)
-        print(donnees[1])
         if donnees[1] == pseudo and donnees[2] == mdp:
             idJoueur= donnees[0]
-            print("ok fichier")
             connecter=True
             break
         else:
-            print("pas ok")
             connecter=False
         indice=indice+1#incremente indice
     fichier.close()#fermeture du fichier
     decoupe=donnees[2].split('\n')#permet de supprimer le retour à la ligne
     donnees[2]=decoupe[0]
 #########################################################################################
-###############PARCOUR LE FICHIER POUR RECUPERER DONNEES#########################
-    donneesJ=[]#liste pour recuperer valeur
-    with open("fichiers\clubs\c"+idJoueur+".txt", "r") as fichier:#ouverture fichier
-        donneesJ= fichier.read().split("\n")
-    indice=5
-    while donneesJ[indice]!="":
-        indice=indice+1
-    indice=indice-5
-    nomEquipe=donneesJ[2]
-    argent=donneesJ[4]
-    effectif=str(indice)
-#########################################################################################
     
     if connecter:
+###############PARCOUR LE FICHIER POUR RECUPERER DONNEES#########################
+        donneesJ=[]#liste pour recuperer valeur
+        with open("fichiers\clubs\c"+idJoueur+".txt", "r") as fichier:#ouverture fichier
+            donneesJ= fichier.read().split("\n")
+        indice=5
+        while donneesJ[indice]!="":
+            indice=indice+1
+        indice=indice-5
+        nomEquipe=donneesJ[2]
+        argent=donneesJ[4]
+        effectif=str(indice)
+#########################################################################################
+
         #disposition
         Label(tete, text="Equipe: "+nomEquipe,bg="white").pack(side="left",padx=30)
         Label(tete, text="Coach: "+pseudo.capitalize(),bg="white").pack(side="left",padx=30)
@@ -65,12 +63,15 @@ def accueil(pseudo,mdp):
         Label(tete, text="Niveau: "+niveau,bg="white").pack(side="left",padx=30)
         Label(tete, text="Argent: "+argent+" €",bg="white").pack(side="left",padx=30)
         Label(tete, text="Classement Club: "+classement,bg="white").pack(side="left",padx=30)
+        
+        Button(pied, text="Infos",width=30,relief="raised",borderwidth=5, command=informations).pack(side="left",padx=30)
+        Button(pied, text="Quitter",width=30,relief="raised",borderwidth=5, command=accueil.destroy).pack(side="left",padx=30)
+        #affichage
+        tete.pack()
+        centre.pack()
+        pied.pack()
+        accueil.mainloop()
 
     else:
-        print("Erreur")
-    
-    #affichage
-    tete.pack()
-    centre.pack()
-    pied.pack()
-    accueil.mainloop()
+        accueil.destroy()
+        showwarning("Probléme connection", "Votre pseudo et/ou votre mot de passe est ou sont incorrect(s)")
